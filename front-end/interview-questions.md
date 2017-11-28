@@ -99,6 +99,7 @@ These days, using `data-` attributes is not encouraged. One reason is that users
 ###### References
 
 - http://html5doctor.com/html5-custom-data-attributes/
+- https://www.w3.org/TR/html5/dom.html#embedding-custom-non-visible-data-with-the-data-*-attributes
 
 ### Consider HTML5 as an open web platform. What are the building blocks of HTML5?
 
@@ -199,6 +200,10 @@ Answers to [Front-end Job Interview Questions - CSS Questions](https://github.co
 - **IDs** - Meant to be unique within the document. Can be used to identify an element when linking using a fragment identifier. Elements can only have one `id` attribute.
 - **Classes** - Can be reused on multiple elements within the document. Mainly for styling and targeting elements.
 
+###### References
+- https://www.w3.org/TR/CSS1/#id-as-selector
+- https://www.w3.org/TR/CSS1/#class-as-selector
+
 ### What's the difference between "resetting" and "normalizing" CSS? Which would you choose, and why?
 
 - **Resetting** - Resetting is meant to strip all default browser styling on elements. For e.g. `margin`s, `padding`s, `font-size`s of all elements are reset to be the same. You will have to redeclare styling for common typographic elements.
@@ -293,6 +298,10 @@ CSS sprites combine multiple images into one single larger image. It is commonly
 - Reduce the number of HTTP requests for multiple images (only one single request is required per spritesheet). But with HTTP2, loading multiple images is no longer much of an issue.
 - Advance downloading of assets that won't be downloaded until needed, such as images that only appear upon `:hover` pseudo-states. Blinking wouldn't be seen.
 
+###### References
+
+- https://css-tricks.com/css-sprites/
+
 ### What are your favorite image replacement techniques and which do you use when?
 
 CSS image replacement is a technique of replacing a text element (usually a header tag like an `<h1>`) with an image (often a logo). It has its origins in the time before web fonts and SVG. For years, web developers battled against browser inconsistencies to craft image replacement techniques that struck the right balance between design and accessibility.
@@ -326,8 +335,16 @@ These techniques are related to accessibility (a11y).
 - `width: 0; height: 0`. Make the element not take up any space on the screen at all, resulting in not showing it.
 - `position: absolute; left: -99999px`. Position it outside of the screen.
 - `text-indent: -9999px`. This only works on text within the `block` elements.
+- Metadata. For example by using Schema.org, RDF and JSON-LD.
+- WAI-ARIA. A W3C technical specification that specifies how to increase the accessibility of web pages.
 
-I would go with the `absolute` positioning approach, as it has the least caveats and works for most elements.
+Even if WAI-ARIA is the ideal solution, I would go with the `absolute` positioning approach, as it has the least caveats, works for most elements and it's an easy technique.
+
+###### References
+
+- https://www.w3.org/TR/wai-aria-1.1/
+- https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA
+- http://a11yproject.com/
 
 ### Have you ever used a grid system, and if so, what do you prefer?
 
@@ -491,7 +508,7 @@ I shall throw in a comparison with `block` for good measure.
 | Margins and paddings | All sides respected. | All sides respected. | Only horizontal sides respected. Vertical sides, if specified, do not affect layout. Vertical space it takes up depends on `line-height`, even though the `border` and `padding` appear visually around the content. |
 | Float | - | - | Becomes like a `block` element where you can set vertical margins and paddings. |
 
-**What's the difference between a `relative`, `fixed`, `absolute` and `static`-ally positioned element?**
+### What's the difference between a `relative`, `fixed`, `absolute` and `static`-ally positioned element?**
 
 A positioned element is an element whose computed `position` property is either `relative`, `absolute`, `fixed` or `sticky`.
 
@@ -713,7 +730,7 @@ A closure is the combination of a function and the lexical environment within wh
 
 They can be used in IIFEs to encapsulate some code within a local scope so that variables declared in it do not leak to the global scope.
 
-```
+```js
 (function() {
   // Some code here.
 })();
@@ -721,7 +738,7 @@ They can be used in IIFEs to encapsulate some code within a local scope so that 
 
 As a callback that is used once and does not need to be used anywhere else. The code will seem more self-contained and readable when handlers are defined right inside the code calling them, rather than having to search elsewhere to find the function body.
 
-```
+```js
 setTimeout(function () {
   console.log('Hello world!');
 }, 1000);
@@ -729,7 +746,7 @@ setTimeout(function () {
 
 Arguments to functional programming constructs or Lodash (similar to callbacks).
 
-```
+```js
 const arr = [1, 2, 3];
 const double = arr.map(function (el) {
   return el * 2;
@@ -862,7 +879,7 @@ This is a browser-reported string that allows the network protocol peers to iden
 
 ### Explain Ajax in as much detail as possible.
 
-Ajax (asynchronous JavaScript and XML") is a set of web development techniques using many web technologies on the client side to create asynchronous web applications. With Ajax, web applications can send data to and retrieve from a server asynchronously (in the background) without interfering with the display and behavior of the existing page. By decoupling the data interchange layer from the presentation layer, Ajax allows for web pages, and by extension web applications, to change content dynamically without the need to reload the entire page. In practice, modern implementations commonly substitute JSON for XML due to the advantages of being native to JavaScript.
+Ajax (asynchronous JavaScript and XML) is a set of web development techniques using many web technologies on the client side to create asynchronous web applications. With Ajax, web applications can send data to and retrieve from a server asynchronously (in the background) without interfering with the display and behavior of the existing page. By decoupling the data interchange layer from the presentation layer, Ajax allows for web pages, and by extension web applications, to change content dynamically without the need to reload the entire page. In practice, modern implementations commonly substitute JSON for XML due to the advantages of being native to JavaScript.
 
 The `XMLHttpRequest` API is frequently used for the asynchronous communication or these days, the `fetch` API.
 
@@ -891,7 +908,7 @@ The `XMLHttpRequest` API is frequently used for the asynchronous communication o
 
 JSONP (JSON with Padding) is a method commonly used to bypass the cross-domain policies in web browsers because Ajax requests from the current page to a cross-origin domain is not allowed.
 
-JSONP works by making a request to a cross-origin domain via a `<script>` tag and usually with a `callback` query parameter, for example: `https://example.com?callback=printData`. The server will then wrap the data within the a function called `printData` and return it to the client.
+JSONP works by making a request to a cross-origin domain via a `<script>` tag and usually with a `callback` query parameter, for example: `https://example.com?callback=printData`. The server will then wrap the data within a function called `printData` and return it to the client.
 
 ```html
 <!-- https://mydomain.com -->
@@ -923,7 +940,7 @@ These days, [CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) i
 
 Yes. Handlebars, Underscore, Lodash, AngularJS and JSX. I disliked templating in AngularJS because it made heavy use of strings in the directives and typos would go uncaught. JSX is my new favourite as it is closer to JavaScript and there is barely and syntax to be learnt. Nowadays, you can even use ES2015 template string literals as a quick way for creating templates without relying on third-party code.
 
-```
+```js
 const template = `<div>My name is: ${name}</div>`;
 ```
 
@@ -933,7 +950,7 @@ However, do beware of a potential XSS in the above approach as the contents are 
 
 Hoisting is a term used to explain the behavior of variable declarations in your code. Variables declared or initialized with the `var` keyword will have their declaration "hoisted" up to the top of the current scope. However, only the declaration is hoisted, the assignment (if there is one), will stay where it is. Let's explain with a few examples.
 
-```
+```js
 // var declarations are hoisted.
 console.log(foo); // undefined
 var foo = 1;
@@ -947,7 +964,7 @@ console.log(bar); // 2
 
 Function declarations have the body hoisted while the function expressions (written in the form of variable declarations) only has the variable declaration hoisted.
 
-```
+```js
 // Function Declaration
 console.log(foo); // [Function: foo]
 foo(); // 'FOOOOO'
@@ -973,7 +990,7 @@ When an event triggers on a DOM element, it will attempt to handle the event if 
 
 Attributes are defined on the HTML markup but properties are defined on the DOM. To illustrate the difference, imagine we have this text field in our HTML: `<input type="text" value="Hello">`.
 
-```
+```js
 const input = document.querySelector('input');
 console.log(input.getAttribute('value')); // Hello
 console.log(input.value); // Hello
@@ -981,7 +998,7 @@ console.log(input.value); // Hello
 
 But after you change the value of the text field by adding "World!" to it, this becomes:
 
-```
+```js
 console.log(input.getAttribute('value')); // Hello
 console.log(input.value); // Hello World!
 ```
@@ -1223,6 +1240,7 @@ For objects:
 
 - `for` loops - `for (var property in obj) { console.log(property); }`. However, this will also iterate through its inherited properties, and you will add an `obj.hasOwnProperty(property)` check before using it.
 - `Object.keys()` - `Object.keys(obj).forEach(function (property) { ... })`. `Object.keys()` is a static method that will lists all enumerable properties of the object that you pass it.
+- `Object.getOwnPropertyNames()` - `Object.getOwnPropertyNames(obj).forEach(function (property) { ... })`. `Object.getOwnPropertyNames()` is a static method that will lists all enumerable and non-enumerable properties of the object that you pass it.
 
 For arrays:
 
